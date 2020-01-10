@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 
 let OrbitControls = require('three-orbit-controls')(THREE);
-controls.autoRotate = true;
 
 let canvas = document.querySelector('#canvas')
 
@@ -43,30 +42,30 @@ let controls = new OrbitControls(camera, renderer.domElement);
 
 // line
 
-let material = new THREE.LineBasicMaterial({
-    color: 0x848484
-});
-
+// let material = new THREE.LineBasicMaterial({
+//     color: 0x848484
+// });
+//
 // for (let i = 0; i < lines; i++) {
 //   let geometry = new THREE.Geometry();
 //   let line = new THREE.Line(geometry, material);
-
+//
 //   for (let j = 0; j < dots; j++) {
-
+//
 //     let coord = (j / dots) * radius * 2 - radius;
-
+//
 //     let vector = new THREE.Vector3(coord, 0)
 //     geometry.vertices.push(vector);
-
+//
 //   }
-
+//
 //   line.rotation.x = Math.random() * Math.PI
 //   line.rotation.y = Math.random() * Math.PI
 //   line.rotation.z = Math.random() * Math.PI
-
+//
 //   group.add(line)
 // }
-
+//
 // function UpdateLines(time) {
 //   let line, vector, ratio
 //   for (let i = 0; i < lines; i++) {
@@ -100,14 +99,17 @@ data = data.data;
 for (let y = 0; y < size; y++) {
 
     let geometry = new THREE.Geometry();
+    let material = new THREE.LineBasicMaterial({
+            color: 0x787878,
+            linewidth: 1
+    });
     let line = new THREE.Line(geometry, material);
 
     for (let x = 0; x < size; x++) {
         let bright = data[((size * y) + x) * 4];
-        let vector = new THREE.Vector3((x - 100) / 2, (y - 100) / 2, bright / 2)
+        let vector = new THREE.Vector3(((x - 100)*(-1))/2, ((y - 100)*(-1))/2, bright/4)
         geometry.vertices.push(vector);
     }
-    line.rotation.z = 3.2
     group.add(line)
 
 }
@@ -115,8 +117,12 @@ for (let y = 0; y < size; y++) {
 let time = 0;
 
 function Render() {
+    time++
     renderer.render(scene, camera);
     controls.update();
+    // group.rotation.z = time/100
+    // group.rotation.x = time/1000
+    group.rotation.y = time/400
     // UpdateLines(time);
     window.requestAnimationFrame(Render);
 }
