@@ -27,7 +27,7 @@ renderer.setClearColor(0x333333);
 // camera
 
 let camera = new THREE.PerspectiveCamera(40, width / height, 1, 1000);
-camera.position.set(0, 0, 600);
+camera.position.set(0, 0, 300);
 
 // camera END
 
@@ -104,7 +104,7 @@ for (let y = 0; y < size; y++) {
 
   for (let x = 0; x < size; x++) {
     let bright = data[((size * y) + x) * 4];
-    let vector = new THREE.Vector3(x - 100, y - 100, bright)
+    let vector = new THREE.Vector3((x - 100)/2, (y - 100)/2, bright/2)
     geometry.vertices.push(vector);
   }
   line.rotation.z = 3.2
@@ -113,10 +113,10 @@ for (let y = 0; y < size; y++) {
 }
 
 let time = 0;
-
 function Render() {
-  time++;
   renderer.render(scene, camera);
+  controls.autoRotate = true;
+  controls.update();
   // UpdateLines(time);
   window.requestAnimationFrame(Render);
 }
