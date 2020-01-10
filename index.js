@@ -100,14 +100,14 @@ for (let y = 0; y < size; y++) {
 
     let geometry = new THREE.Geometry();
     let material = new THREE.LineBasicMaterial({
-            color: 0x787878,
-            linewidth: 1
+        color: 0x787878,
+        linewidth: 1
     });
     let line = new THREE.Line(geometry, material);
 
     for (let x = 0; x < size; x++) {
         let bright = data[((size * y) + x) * 4];
-        let vector = new THREE.Vector3(((x - 100)*(-1))/2, ((y - 100)*(-1))/2, bright/4)
+        let vector = new THREE.Vector3(((x - 100) * (-1)) / 2, ((y - 100) * (-1)) / 2, bright / 4)
         geometry.vertices.push(vector);
     }
     group.add(line)
@@ -119,10 +119,7 @@ let time = 0;
 function Render() {
     time++
     renderer.render(scene, camera);
-    controls.update();
-    // group.rotation.z = time/100
-    // group.rotation.x = time/1000
-    group.rotation.y = time/400
+    group.rotation.y = time / 400
     // UpdateLines(time);
     window.requestAnimationFrame(Render);
 }
