@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 
 let OrbitControls = require('three-orbit-controls')(THREE);
+controls.autoRotate = true;
 
 let canvas = document.querySelector('#canvas')
 
@@ -14,8 +15,8 @@ let radius = 100;
 // renderer
 
 let renderer = new THREE.WebGLRenderer({
-  canvas: canvas,
-  antialias: true
+    canvas: canvas,
+    antialias: true
 });
 
 renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
@@ -43,7 +44,7 @@ let controls = new OrbitControls(camera, renderer.domElement);
 // line
 
 let material = new THREE.LineBasicMaterial({
-  color: 0x848484
+    color: 0x848484
 });
 
 // for (let i = 0; i < lines; i++) {
@@ -82,7 +83,6 @@ let material = new THREE.LineBasicMaterial({
 // line END
 
 
-
 let canvas2d = document.querySelector('#canvas2')
 let ctx = canvas2d.getContext('2d')
 let size = 200;
@@ -99,26 +99,26 @@ data = data.data;
 
 for (let y = 0; y < size; y++) {
 
-  let geometry = new THREE.Geometry();
-  let line = new THREE.Line(geometry, material);
+    let geometry = new THREE.Geometry();
+    let line = new THREE.Line(geometry, material);
 
-  for (let x = 0; x < size; x++) {
-    let bright = data[((size * y) + x) * 4];
-    let vector = new THREE.Vector3((x - 100)/2, (y - 100)/2, bright/2)
-    geometry.vertices.push(vector);
-  }
-  line.rotation.z = 3.2
-  group.add(line)
+    for (let x = 0; x < size; x++) {
+        let bright = data[((size * y) + x) * 4];
+        let vector = new THREE.Vector3((x - 100) / 2, (y - 100) / 2, bright / 2)
+        geometry.vertices.push(vector);
+    }
+    line.rotation.z = 3.2
+    group.add(line)
 
 }
 
 let time = 0;
+
 function Render() {
-  renderer.render(scene, camera);
-  controls.autoRotate = true;
-  controls.update();
-  // UpdateLines(time);
-  window.requestAnimationFrame(Render);
+    renderer.render(scene, camera);
+    controls.update();
+    // UpdateLines(time);
+    window.requestAnimationFrame(Render);
 }
 
 Render();
